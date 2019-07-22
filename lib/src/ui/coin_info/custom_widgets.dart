@@ -2,6 +2,7 @@ import 'package:bezier_chart/bezier_chart.dart';
 import 'package:cryptoholic/src/models/history.dart';
 import 'package:cryptoholic/src/models/selected_time_mode.dart';
 import 'package:cryptoholic/src/ui/coin_info/coin_info_bloc.dart';
+import 'package:cryptoholic/src/ui/common/crypto_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,7 @@ class CoinInfoGraph extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<History> snapshot) {
         if (!snapshot.hasData) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CryptoLoadingIndicator(),
           );
         }
 
