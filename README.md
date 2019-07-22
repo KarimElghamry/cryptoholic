@@ -54,4 +54,4 @@ You can aquire the current app version (apk) <a href="https://github.com/KarimEl
 
 ## Screenshots
 
-<p align="center"><img height="480px" src="screenshots/C1.png"> <img height="480px" src="screenshots/C2.png"> <img height="480px" src="screenshots/C3.png"> <img height="480px" src="screenshots/C4.png"></p>
+<p align="center"><img height="480px" src="screenshots/C1.png"> <img height="480px" src="screenshots/C2.png"> <img height="480px" src="screenshots/C5.png"> <img height="480px" src="screenshots/C3.png"> <img height="480px" src="screenshots/C4.png"></p>
