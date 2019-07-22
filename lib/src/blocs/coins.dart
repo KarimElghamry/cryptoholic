@@ -57,7 +57,7 @@ class CoinsBloc {
   Future<void> _pushMaxListSize() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     final int _maxSize = _prefs.getInt("max size");
-    _maxListSize$.add(_maxSize ?? 50);
+    _maxListSize$.add(_maxSize ?? 100);
   }
 
   Future<void> setMaxListSize(int value) async {
