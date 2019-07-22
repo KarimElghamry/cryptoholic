@@ -8,6 +8,8 @@ You can aquire the current app version (apk) <a href="https://github.com/KarimEl
 
 <b>PS:</b> The apk provided above is for <b>testing purposes only.</b> 
 
+### Show some :heart: and star the repo to support the project
+
 ## How to Run
 - Aquire your free `API Key` from the <a href="https://min-api.cryptocompare.com/">CryptoCompare Website.<a>
 
@@ -41,8 +43,15 @@ You can aquire the current app version (apk) <a href="https://github.com/KarimEl
 
 ## TODO List
 
+- Implement error handling <b>(Priority)</b>
+
 - Add monthly and yearly charts
 
 - Add personal account tab
 
 - Add personal wallet and balance
+
+
+## Screenshots
+
+<p align="center"><img height="480px" src="screenshots/C1.png"> <img height="480px" src="screenshots/C2.png"> <img height="480px" src="screenshots/C3.png"> <img height="480px" src="screenshots/C4.png"></p>
