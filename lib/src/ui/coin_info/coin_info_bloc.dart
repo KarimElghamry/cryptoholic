@@ -8,21 +8,31 @@ import 'package:rxdart/rxdart.dart';
 class CoinInfoBloc {
   BehaviorSubject<History> _history$;
   BehaviorSubject<SelectedTimeMode> _timeMode$;
+  BehaviorSubject<bool> _isLoading$;
   String _symbol;
+  bool _isLoading;
 
   BehaviorSubject<History> get history$ => _history$;
   BehaviorSubject<SelectedTimeMode> get timeMode$ => _timeMode$;
+  BehaviorSubject<bool> get isLoading$ => _isLoading$;
 
   CoinInfoBloc(String symbol) {
     _symbol = symbol;
+    _isLoading = false;
     _history$ = BehaviorSubject<History>();
+    _isLoading$ = BehaviorSubject<bool>();
     _timeMode$ =
         BehaviorSubject<SelectedTimeMode>.seeded(SelectedTimeMode.Daily);
     getDailyHistory();
   }
 
   Future<void> getDailyHistory() async {
+    if (_isLoading) {
+      return;
+    }
+    _isLoading = true;
     _history$.add(null);
+    updateTimeMode(SelectedTimeMode.Daily);
     final PrivateData _privateData =
         await PrivateData.fromAssets("privateData.json");
     final String _url =
@@ -35,12 +45,18 @@ class CoinInfoBloc {
     final Map<String, dynamic> _json = jsonDecode(_response.body);
     final History _history = History.fromJson(_json);
     _history$.add(_history);
+    _isLoading = false;
   }
 
   Future<void> getHourlyHistory() async {
+    if (_isLoading) {
+      return;
+    }
+    _isLoading = true;
+    _history$.add(null);
+    updateTimeMode(SelectedTimeMode.Hourly);
     final PrivateData _privateData =
         await PrivateData.fromAssets("privateData.json");
-    _history$.add(null);
     final String _url =
         "https://min-api.cryptocompare.com/data/histohour?fsym=" +
             _symbol +
@@ -51,6 +67,11 @@ class CoinInfoBloc {
     final Map<String, dynamic> _json = jsonDecode(_response.body);
     final History _history = History.fromJson(_json);
     _history$.add(_history);
+    _isLoading = false;
+  }
+
+  void refreshLoadingStatus() {
+    _isLoading$.add(_isLoading);
   }
 
   void updateTimeMode(SelectedTimeMode mode) {
@@ -60,5 +81,6 @@ class CoinInfoBloc {
   void dispose() {
     _history$.close();
     _timeMode$.close();
+    _isLoading$.close();
   }
 }

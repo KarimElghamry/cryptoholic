@@ -70,19 +70,19 @@ class CoinInfoGraph extends StatelessWidget {
               label: "Open",
               data: _pricePoints,
               lineColor: Colors.green,
-              lineStrokeWidth: 5,
+              lineStrokeWidth: 3,
             ),
             BezierLine(
               label: "High",
               data: _highPoints,
               lineColor: Colors.black,
-              lineStrokeWidth: 5,
+              lineStrokeWidth: 3,
             ),
             BezierLine(
               label: "Low",
               data: _lowPoints,
               lineColor: Colors.red,
-              lineStrokeWidth: 5,
+              lineStrokeWidth: 3,
             ),
           ],
           config: BezierChartConfig(
@@ -95,7 +95,7 @@ class CoinInfoGraph extends StatelessWidget {
             verticalIndicatorColor: Colors.black,
             showVerticalIndicator: true,
             verticalIndicatorFixedPosition: false,
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white,
             footerHeight: 50,
             displayLinesXAxis: true,
             xLinesColor: Colors.red,
@@ -126,47 +126,46 @@ class TimeModeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final CoinInfoBloc _coinInfoBloc = Provider.of<CoinInfoBloc>(context);
     return StreamBuilder<SelectedTimeMode>(
-        stream: _coinInfoBloc.timeMode$,
-        builder:
-            (BuildContext context, AsyncSnapshot<SelectedTimeMode> snapshot) {
-          if (!snapshot.hasData) {
-            return Container();
-          }
+      stream: _coinInfoBloc.timeMode$,
+      builder:
+          (BuildContext context, AsyncSnapshot<SelectedTimeMode> snapshot) {
+        if (!snapshot.hasData) {
+          return Container();
+        }
 
-          final SelectedTimeMode _mode = snapshot.data;
-          return GestureDetector(
-            onTap: () {
-              _coinInfoBloc.updateTimeMode(_selectedMode);
-              if (_selectedMode == SelectedTimeMode.Daily) {
-                _coinInfoBloc.getDailyHistory();
-              } else {
-                _coinInfoBloc.getHourlyHistory();
-              }
-            },
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 250),
-              curve: Curves.linear,
-              width: double.infinity,
-              height: 50,
-              decoration: BoxDecoration(
-                color:
-                    _mode == _selectedMode ? Color(0xFFE7F9EA) : Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: Text(
-                  _selectedMode.toString().substring(17),
-                  style: TextStyle(
-                    color: _mode == _selectedMode
-                        ? Color(0xFF82D991)
-                        : Colors.black,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                  ),
+        final SelectedTimeMode _mode = snapshot.data;
+        return GestureDetector(
+          onTap: () {
+            _coinInfoBloc.refreshLoadingStatus();
+            if (_selectedMode == SelectedTimeMode.Daily) {
+              _coinInfoBloc.getDailyHistory();
+            } else {
+              _coinInfoBloc.getHourlyHistory();
+            }
+          },
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 250),
+            curve: Curves.linear,
+            width: double.infinity,
+            height: 50,
+            decoration: BoxDecoration(
+              color: _mode == _selectedMode ? Color(0xFFE7F9EA) : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Center(
+              child: Text(
+                _selectedMode.toString().substring(17),
+                style: TextStyle(
+                  color:
+                      _mode == _selectedMode ? Color(0xFF82D991) : Colors.black,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

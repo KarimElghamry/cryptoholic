@@ -8,16 +8,20 @@ import 'package:provider/provider.dart';
 
 class CoinInfoScreen extends StatelessWidget {
   final Coin _coin;
+  final double _appBarHeight = 150;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   CoinInfoScreen({@required Coin coin}) : _coin = coin;
 
   @override
   Widget build(BuildContext context) {
-    final double _appBarHeight = 150;
     final _coinInfoBloc = CoinInfoBloc(_coin.coinInfo.symbol);
+    _spamSnackBar(_coinInfoBloc);
+
     return Provider(
       builder: (BuildContext context) => _coinInfoBloc,
       dispose: (BuildContext context, CoinInfoBloc bloc) => bloc.dispose(),
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: PreferredSize(
           preferredSize: Size(double.infinity, _appBarHeight),
           child: CryptoholicAppBar(
@@ -132,6 +136,23 @@ class CoinInfoScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _spamSnackBar(CoinInfoBloc _coinInfoBloc) {
+    _coinInfoBloc.isLoading$.listen(
+      (bool isLoading) {
+        if (isLoading) {
+          _scaffoldKey.currentState.showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              elevation: 0.0,
+              duration: Duration(milliseconds: 1500),
+              content: Text("Loading in progress, don't spam."),
+            ),
+          );
+        }
+      },
     );
   }
 }
