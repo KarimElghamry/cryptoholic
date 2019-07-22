@@ -1,3 +1,4 @@
+import 'package:cryptoholic/src/ui/coming_soon/coming_soon_screen.dart';
 import 'package:cryptoholic/src/ui/common/app_bar.dart';
 import 'package:cryptoholic/src/ui/common/custom_icons.dart';
 import 'package:cryptoholic/src/ui/home/bottom_sheet_settings.dart';
@@ -131,10 +132,10 @@ class _HomeScreenState extends State<HomeScreen> {
               return MarketScreen();
               break;
             case 1:
-              return MarketScreen();
+              return ComingSoonScreen();
               break;
-            case 0:
-              return MarketScreen();
+            case 2:
+              return ComingSoonScreen();
               break;
             default:
               return MarketScreen();
