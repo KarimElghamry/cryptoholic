@@ -16,12 +16,14 @@ class _HomeScreenState extends State<HomeScreen> {
   HomeScreenBloc _homeScreenBloc;
   double _appBarHeight;
   GlobalKey<ScaffoldState> _scaffoldKey;
+  List<String> _titles;
 
   @override
   void initState() {
     _homeScreenBloc = HomeScreenBloc();
     _scaffoldKey = GlobalKey<ScaffoldState>();
     _appBarHeight = 150;
+    _titles = ["Market", "Wallet", "Account"];
     super.initState();
   }
 
@@ -37,40 +39,50 @@ class _HomeScreenState extends State<HomeScreen> {
       key: _scaffoldKey,
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, _appBarHeight),
-        child: CryptoholicAppBar(
-          title: "Market",
-          height: _appBarHeight,
-          leading: ClipRRect(
-            borderRadius: BorderRadius.circular(26),
-            child: Material(
-              type: MaterialType.transparency,
-              child: IconButton(
-                onPressed: () => _scaffoldKey.currentState.openDrawer(),
-                splashColor: Colors.white,
-                icon: Icon(
-                  CustomIcons.menuCustomIcon,
-                  color: Colors.white,
-                  size: 18,
+        child: StreamBuilder<int>(
+            stream: _homeScreenBloc.pageIndex$,
+            initialData: 0,
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+              if (!snapshot.hasData) {
+                return Container();
+              }
+
+              final _index = snapshot.data;
+              return CryptoholicAppBar(
+                title: _titles[_index],
+                height: _appBarHeight,
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(26),
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: IconButton(
+                      onPressed: () => _scaffoldKey.currentState.openDrawer(),
+                      splashColor: Colors.white,
+                      icon: Icon(
+                        CustomIcons.menuCustomIcon,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-          action: ClipRRect(
-            borderRadius: BorderRadius.circular(26),
-            child: Material(
-              type: MaterialType.transparency,
-              child: IconButton(
-                onPressed: () => settingModalBottomSheet(context),
-                splashColor: Colors.white,
-                icon: Icon(
-                  Icons.settings,
-                  color: Colors.white,
-                  size: 26,
+                action: ClipRRect(
+                  borderRadius: BorderRadius.circular(26),
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: IconButton(
+                      onPressed: () => settingModalBottomSheet(context),
+                      splashColor: Colors.white,
+                      icon: Icon(
+                        Icons.settings,
+                        color: Colors.white,
+                        size: 26,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-        ),
+              );
+            }),
       ),
       drawer: Drawer(),
       backgroundColor: Colors.white,
@@ -104,15 +116,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 elevation: 0,
                 items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
-                    title: Text("Market"),
+                    title: Text(_titles[0]),
                     icon: Icon(Icons.attach_money),
                   ),
                   BottomNavigationBarItem(
-                    title: Text("Wallet"),
+                    title: Text(_titles[1]),
                     icon: Icon(Icons.account_balance_wallet),
                   ),
                   BottomNavigationBarItem(
-                    title: Text("Account"),
+                    title: Text(_titles[2]),
                     icon: Icon(Icons.person_outline),
                   ),
                 ],
