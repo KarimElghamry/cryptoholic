@@ -8,7 +8,7 @@ You can aquire the current app version (apk) <a href="https://github.com/KarimEl
 
 <b>PS:</b> The apk provided above is for <b>testing purposes only.</b> 
 
-### Show some :heart: and star the repo to support the project
+### Show some :heart: and :star: the repo to support the project
 
 ## How to Run
 - Aquire your free `API Key` from the <a href="https://min-api.cryptocompare.com/">CryptoCompare Website.<a>
