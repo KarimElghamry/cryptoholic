@@ -1,6 +1,7 @@
 import 'package:cryptoholic/src/blocs/global.dart';
 import 'package:cryptoholic/src/models/coin.dart';
 import 'package:cryptoholic/src/ui/coin_info/coin_info_screen.dart';
+import 'package:cryptoholic/src/ui/common/crypto_loading_indicator.dart';
 import 'package:cryptoholic/src/ui/market/coin_card.dart';
 import 'package:cryptoholic/src/ui/market/market_screen_bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,7 +42,7 @@ class _MarketScreenState extends State<MarketScreen> {
         builder: (BuildContext context, AsyncSnapshot<List<Coin>> snapshot) {
           if (!snapshot.hasData) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CryptoLoadingIndicator(),
             );
           }
 

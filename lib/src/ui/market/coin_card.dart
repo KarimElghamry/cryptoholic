@@ -1,4 +1,5 @@
 import 'package:cryptoholic/src/models/coin.dart';
+import 'package:cryptoholic/src/ui/common/crypto_loading_indicator.dart';
 import 'package:cryptoholic/src/ui/market/mini_graph.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -40,7 +41,7 @@ class CoinCard extends StatelessWidget {
                   child: CachedNetworkImage(
                     imageUrl: _coin.coinInfo.imageUrl,
                     placeholder: (BuildContext context, _) => Center(
-                      child: CircularProgressIndicator(),
+                      child: CryptoLoadingIndicator(),
                     ),
                     errorWidget: (BuildContext context, _, __) =>
                         Icon(Icons.error),

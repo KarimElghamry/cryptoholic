@@ -38,7 +38,7 @@ class ComingSoonScreen extends StatelessWidget {
   }
 
   _launchURL() async {
-    const url = 'https://flutter.dev';
+    const url = 'https://github.com/KarimElghamry/cryptoholic';
     if (await canLaunch(url)) {
       await launch(url);
     }
