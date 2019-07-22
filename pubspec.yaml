@@ -29,6 +29,7 @@ dependencies:
   cached_network_image: ^1.1.0
   bezier_chart: ^1.0.12
   shared_preferences: ^0.5.3+4
+  url_launcher: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +53,7 @@ flutter:
 
   assets:
    - privateData.json
+   - assets/images/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
