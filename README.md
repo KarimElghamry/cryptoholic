@@ -1,16 +1,48 @@
-# cryptoholic
+# Cryptoholic
 
-A new Flutter project.
+A Cryptocurrency app made with Flutter using Provider and BLoC pattern.
 
-## Getting Started
+UI is heavily inspired by <a href="https://dribbble.com/shots/5592695-Cryptocurrency-App-Ui/attachments/1209351">this design.</a>
 
-This project is a starting point for a Flutter application.
+You can aquire the current app version (apk) <a href="https://github.com/KarimElghamry/cryptoholic/releases/tag/v0.5-beta">here.</a>
 
-A few resources to get you started if this is your first Flutter project:
+<b>PS:</b> The apk provided above is for <b>testing purposes only.</b> 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## How to Run
+- Aquire your free `API Key` from the <a href="https://min-api.cryptocompare.com/">CryptoCompare Website.<a>
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Navigate to the project's root directory and create a new file called `privateData.json` and add the following text to file:
+```
+{
+  "apiKey": "<insert your API Key here>"
+}
+```
+
+- Run the command `flutter run` using the terminal in the project's directory.
+
+## Current Features
+
+[✓] Display top Cryptocurrencies
+
+[✓] Real-time data
+
+[✓] Search for Cryptocurrencies
+
+[✓] Refresh on demand (pull to refresh)
+
+[✓] Daily performance charts
+
+[✓] Hourly performance charts
+
+[✓] Openning, high and low prices
+
+[✓] Fancy UI
+
+
+## TODO List
+
+- Add monthly and yearly charts
+
+- Add personal account tab
+
+- Add personal wallet and balance
