@@ -3,7 +3,6 @@ import 'package:cryptoholic/src/models/coin.dart';
 import 'package:cryptoholic/src/ui/coin_info/coin_info_screen.dart';
 import 'package:cryptoholic/src/ui/common/crypto_loading_indicator.dart';
 import 'package:cryptoholic/src/ui/market/coin_card.dart';
-import 'package:cryptoholic/src/ui/market/market_screen_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,20 +15,24 @@ class MarketScreen extends StatefulWidget {
 class _MarketScreenState extends State<MarketScreen> {
   ScrollController _scrollController;
   TextEditingController _textEditingController;
-  MarketScreenBloc _marketScreenBloc;
 
   @override
   void initState() {
     _scrollController = ScrollController();
     _textEditingController = TextEditingController();
-    _marketScreenBloc = MarketScreenBloc();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _textEditingController.text =
+        Provider.of<GlobalBloc>(context).searchBloc.currentText$.value;
+    super.didChangeDependencies();
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    _marketScreenBloc.dispose();
     _textEditingController.dispose();
     super.dispose();
   }
@@ -51,10 +54,12 @@ class _MarketScreenState extends State<MarketScreen> {
             children: <Widget>[
               RefreshIndicator(
                 color: Color(0xFF4CDA63),
-                onRefresh: () {
+                onRefresh: () async {
+                  await _globalBloc.coinsBloc.getCoins();
                   _textEditingController.text = "";
-                  _marketScreenBloc.changeTypingState(false);
-                  return _globalBloc.coinsBloc.getCoins();
+                  _globalBloc.searchBloc.changeTypingState(false);
+                  _globalBloc.searchBloc.updateText("");
+                  return Future<void>.value();
                 },
                 child: ListView.separated(
                   key: PageStorageKey("Market"),
@@ -91,7 +96,7 @@ class _MarketScreenState extends State<MarketScreen> {
                             ),
                             border: InputBorder.none,
                             suffixIcon: StreamBuilder<bool>(
-                                stream: _marketScreenBloc.isTyping$,
+                                stream: _globalBloc.searchBloc.isTyping$,
                                 builder: (BuildContext context,
                                     AsyncSnapshot<bool> snapshot) {
                                   if (!snapshot.hasData) {
@@ -115,10 +120,11 @@ class _MarketScreenState extends State<MarketScreen> {
                               _globalBloc.coinsBloc.filterCoins(value),
                           onChanged: (String value) {
                             if (value.trim().length == 0) {
-                              _marketScreenBloc.changeTypingState(false);
+                              _globalBloc.searchBloc.changeTypingState(false);
                             } else {
-                              _marketScreenBloc.changeTypingState(true);
+                              _globalBloc.searchBloc.changeTypingState(true);
                             }
+                            _globalBloc.searchBloc.updateText(value);
                           },
                         ),
                       );
