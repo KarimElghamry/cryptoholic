@@ -78,7 +78,6 @@ class _MarketScreenState extends State<MarketScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: TextField(
-                          key: UniqueKey(),
                           controller: _textEditingController,
                           maxLines: 1,
                           cursorColor: Color(0xFF4CDA63),
