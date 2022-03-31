@@ -56,9 +56,4 @@ You can aquire the current app version (apk) <a href="https://github.com/KarimEl
 
 <p align="center"><img height="480px" src="screenshots/C1.png"> <img height="480px" src="screenshots/C2.png"> <img height="480px" src="screenshots/C5.png"> <img height="480px" src="screenshots/C3.png"> <img height="480px" src="screenshots/C4.png"></p>
   
-  
-## Support
-
-Consider supporting me if this project was useful to you! Thank you!
-
-<a href="https://www.buymeacoffee.com/karimelghamry" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+ 
